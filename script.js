@@ -112,13 +112,13 @@ function GetMap() {
     "use strict";
 
     let centerPoint = new Microsoft.Maps.Location(
-            58.38104,
-            26.71992
-        );
+        58.38104,
+        26.71992
+    );
 
     let centerPoint2 = new Microsoft.Maps.Location(
-            58.09642,
-            27.44747
+        58.09642,
+        27.44747
     );
 
     map = new Microsoft.Maps.Map("#map", {
@@ -130,30 +130,38 @@ function GetMap() {
     });
 
     let pushpin = new Microsoft.Maps.Pushpin(centerPoint, {
-            title: 'Tartu Ülikool',
-            //subTitle: 'Hea koht',
-            //text: 'UT'
+        title: 'Tartu Ülikool',
+        //subTitle: 'Hea koht',
+        //text: 'UT'
     });
 
     let infobox = new Microsoft.Maps.Infobox(centerPoint, {
-            title: 'Tartu Ülikool',
-            description: 'õppehoone'
+        title: 'Tartu Ülikool',
+        description: 'õppehoone',
+        visible: false
     });
 
     let pushpin2 = new Microsoft.Maps.Pushpin(centerPoint2, {
-            title: 'Räpina aianduskool',
+        title: 'Räpina aianduskool',
     });
 
     let infobox2 = new Microsoft.Maps.Infobox(centerPoint2, {
         title: 'Räpina aianduskool',
-        description: 'aiandushuviliste õppehoone'
+        description: 'aiandushuviliste õppehoone',
+        visible: false
     })
 
+    infobox.setMap(map);
+    Microsoft.Maps.Events.addHandler(pushpin, 'click', function () {
+        infobox.setOptions({visible: true});
+    });
     map.entities.push(pushpin);
-    map.entities.push(infobox);
 
     map.entities.push(pushpin2);
     map.entities.push(infobox2);
+    Microsoft.Maps.Events.addHandler(pushpin2, 'click', function () {
+        infobox2.setOptions({visible: true});
+    });
 
 }
 
